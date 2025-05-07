@@ -1,0 +1,29 @@
+export interface Persona {
+  _mexico: number;
+  id: number;
+  photo: string;
+  nombre: string;
+  primer_apellido: string;
+  segundo_apellido: string;
+  fecha_nacimiento: string;
+  pais_nacimiento: number;
+  nacimiento_mexico: string;
+  entidad_nacimiento: number;
+  municipio_nacimiento: number;
+  //asentamiento_nacimiento: number;
+  rfc: string;
+  curp: string;
+  estado_civil: number;
+  sexo: string;
+  identidad_genero: number;
+  nacionalidad: number;
+  nacionalidad_mexicana: string;
+  escolaridad: number;
+  religion: number;
+  ocupacion: number;
+  etnia: number;
+  analfabeta: string;
+  indigena: string;
+  lengua_indigena: number;
+  enfermedad_mental: string;
+}
