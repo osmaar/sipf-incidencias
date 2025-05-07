@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="tw-text-red-400">Sanciones juridico</h1>
+    <p class="tw-text-red-400">Sanciones juridico</p>
   </div>
 </template>
 

@@ -1,21 +1,24 @@
 <template>
   <q-layout view="lHh lpR fFf">
-    <q-header elevated class="tw-bg-emerald-900 text-white" height-hint="98">
-      <q-toolbar>
-        <q-toolbar-title>
-          <div class="titulo-wrapper">
-            <img :src="ImgLogo" class="img-logo" />
-            <span class="titulo-texto">{{ titulo }}</span>
-          </div>
-        </q-toolbar-title>
-      </q-toolbar>
+    <q-header elevated class="tw-bg-emerald-900 text-white">
+      <q-toolbar class="q-pa-sm items-center">
+        <div class="row items-center no-wrap">
+          <img :src="ImgLogo" class="img-logo q-mr-sm" />
+          <span class="text-h6">{{ titulo }}</span>
+        </div>
 
-      <q-tabs align="left">
-        <q-route-tab to="/sanciones-tecnico" label="Incidencias - tecnico" />
-        <q-route-tab to="/sanciones-juridico" label="Incidencias - juridico" />
-        <q-route-tab to="/sanciones-tecnico" label="Sanciones - tecnico" />
-        <q-route-tab to="/sanciones-juridico" label="Sanciones - juridico" />
-      </q-tabs>
+        <q-tabs align="center" shrink class="text-white q-ml-xl">
+          <q-route-tab to="/sanciones-tecnico" label="Incidencias - técnico" />
+          <q-route-tab to="/sanciones-juridico" label="Incidencias - jurídico" />
+          <q-route-tab to="/sanciones-tecnico" label="Sanciones - técnico" />
+          <q-route-tab to="/sanciones-juridico" label="Sanciones - jurídico" />
+        </q-tabs>
+        <q-space />
+
+        <q-avatar size="32px" class="cursor-pointer">
+          <img src="https://cdn.quasar.dev/img/avatar4.png" />
+        </q-avatar>
+      </q-toolbar>
     </q-header>
 
     <q-page-container>
@@ -52,6 +55,9 @@
         <div class="col-10">
           <q-card class="q-ma-md q-pa-md">
             <q-card-body>
+              <q-btn icon="keyboard_backspace" flat class="tw-text-emerald-900"
+                >Regresar Home SIPF</q-btn
+              >
               <router-view />
             </q-card-body>
           </q-card>
