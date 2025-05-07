@@ -8,15 +8,15 @@
         </div>
 
         <q-tabs align="center" shrink class="text-white q-ml-xl">
-          <q-route-tab to="/sanciones-tecnico" label="Incidencias - técnico" />
-          <q-route-tab to="/sanciones-juridico" label="Incidencias - jurídico" />
           <q-route-tab to="/sanciones-tecnico" label="Sanciones - técnico" />
           <q-route-tab to="/sanciones-juridico" label="Sanciones - jurídico" />
+          <q-route-tab to="/incidencias-tecnico" label="Incidencias - técnico" />
+          <q-route-tab to="/incidencias-juridico" label="Incidencias - jurídico" />
         </q-tabs>
         <q-space />
 
         <q-avatar size="32px" class="cursor-pointer">
-          <img src="https://cdn.quasar.dev/img/avatar4.png" />
+          <img :src="Avatar" />
         </q-avatar>
       </q-toolbar>
     </q-header>
@@ -30,7 +30,7 @@
             </div>
             <q-card-section class="text-center">
               <q-avatar size="150px">
-                <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
+                <img :src="Avatar" />
               </q-avatar>
               <p class="q-mt-lg tw-font-semibold tw-font-stretch-150% tw-tracking-wider">
                 Nombre de PPL
@@ -71,7 +71,7 @@
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 import ImgLogo from 'src/assets/img/logo.png';
-
+import Avatar from 'src/assets/img/avatar.jpg';
 const route = useRoute();
 
 const titulo = computed(() => route.meta.title || 'Home');
