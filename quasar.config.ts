@@ -80,7 +80,15 @@ export default defineConfig((/* ctx */) => {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
     devServer: {
       // https: true,
+      port: 9000,
       open: true, // opens browser window automatically
+      proxy: {
+        '/sipf/': {
+          target: 'http://localhost:4200',
+          changeOrigin: true,
+          rewrite: (path: string) => path.replace(/^\/sipf/, ''),
+        },
+      },
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework
