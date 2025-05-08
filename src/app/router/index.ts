@@ -5,6 +5,7 @@ import {
   createWebHistory,
 } from 'vue-router';
 import routes from './routes';
+import { useSessionStore } from 'src/stores/session';
 
 /*
  * If not building with SSR mode, you can
@@ -34,6 +35,16 @@ export default function () {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
+  });
+
+  Router.beforeEach((to, from, next) => {
+    const session = useSessionStore();
+
+    if (to.meta.requiresAuth && !session.token) {
+      next('/not-logged'); // 🔒 Redirige si no hay token
+    } else {
+      next(); // ✅ Permite el acceso
+    }
   });
 
   return Router;
