@@ -3,6 +3,7 @@ import SancionesJuridicopage from 'src/pages/juridico/SancionesPage.vue';
 import SancionesTecnicoPage from 'src/pages/tecnico/SancionesPage.vue';
 import IncidenciasJuridicoPage from 'src/pages/juridico/IncidenciasPage.vue';
 import IncidenciasTecnicoPage from 'src/pages/tecnico/IncidenciasPage.vue';
+import SancionesCreatePage from 'pages/juridico/SancionesCreatePage.vue';
 import NotLogged from 'src/pages/NotLogged.vue';
 
 const routes: RouteRecordRaw[] = [
@@ -28,6 +29,12 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'incidencias-juridico',
         component: IncidenciasJuridicoPage,
+        meta: { title: 'Incidencias Jurídico', requiresAuth: true },
+      },
+
+      {
+        path: 'sanciones-crear',
+        component: SancionesCreatePage,
         meta: { title: 'Incidencias Jurídico', requiresAuth: true },
       },
     ],

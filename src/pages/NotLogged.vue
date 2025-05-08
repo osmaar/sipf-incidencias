@@ -10,7 +10,7 @@
         color="white"
         text-color="blue"
         unelevated
-        to="/"
+        @click="redirectSipf"
         label="Ir a SIPF"
         no-caps
       />
@@ -19,5 +19,8 @@
 </template>
 
 <script setup lang="ts">
-//
+function redirectSipf() {
+  const urlSipf = import.meta.env.VITE_APP_FRONTEND;
+  window.location.href = urlSipf;
+}
 </script>

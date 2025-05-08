@@ -5,7 +5,7 @@ import type { Expediente } from 'entities/expediente/expediente.model';
 
 export const useSessionStore = defineStore('session', {
   state: () => ({
-    token: localStorage.getItem('token') || null,
+    token: null as string | null,
     persona: null as Persona | null,
     expediente: null as Expediente | null,
   }),

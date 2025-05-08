@@ -9,6 +9,7 @@ import { useSessionStore } from 'stores/session';
 const session = useSessionStore();
 
 onBeforeMount(() => {
+  session.$reset();
   session.loadFromStorage();
   console.log('🟢 Datos de sesión cargados desde App.vue:', {
     token: session.token,
