@@ -23,17 +23,10 @@ onBeforeMount(() => {
   session.setToken(token ?? '');
   session.setPersona(persona);
   session.setExpediente(expediente);
-  console.log('🟢 Datos de sesión cargados desde App.vue:', {
-    token: session.token,
-    persona: session.persona,
-    expediente: session.expediente,
-  });
 });
 
 watch(
   () => session.token,
-  (val) => {
-    console.log('Token cambió:', val);
-  },
+  (val) => {},
 );
 </script>

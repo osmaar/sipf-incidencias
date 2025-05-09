@@ -60,8 +60,6 @@ onMounted(() => {
     if (mesActual < mesNacimiento || (mesActual === mesNacimiento && diaActual < diaNacimiento)) {
       edad.value--;
     }
-
-    console.log('sessionStore.persona', expediente?.centro);
   } else {
     edad.value = 0;
   }

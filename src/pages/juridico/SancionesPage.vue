@@ -18,15 +18,15 @@
             <th class="text-left">Acciones</th>
           </tr>
         </thead>
-        <tbody v-if="personas.length > 0">
-          <tr v-for="(persona, index) in paginatedData" :key="index">
+        <tbody v-if="data.length > 0">
+          <tr v-for="(incidencia, index) in data" :key="index">
             <td class="text-center"><q-checkbox v-model="objectTetcnico" :tabindex="index" /></td>
-            <td>{{ persona.folio }}</td>
-            <td>{{ persona.fecha }}</td>
-            <td>{{ persona.tipoIncidencia }}</td>
-            <td>{{ persona.personalCustodia }}</td>
-            <td>{{ persona.cargoPersonal }}</td>
-            <td>{{ persona.estatusIncidencia }}</td>
+            <td>{{ incidencia.folio }}</td>
+            <td>{{ incidencia.fecha_hora_registro }}</td>
+            <td>{{ incidencia.tipo_incidente_descripcion }}</td>
+            <td>{{ incidencia.persona_registra }}</td>
+            <td>{{ incidencia.persona_registra_cargo }}</td>
+            <td>{{ incidencia.estatus }}</td>
             <td>
               <q-btn color="secondary" icon="visibility">
                 <q-tooltip class="bg-secondary">Ver incidencia</q-tooltip>
@@ -45,90 +45,73 @@
       </table>
 
       <q-pagination
-        v-if="pages > 1"
+        v-if="pagination.total_pages > 1"
         v-model="page"
-        :max="pages"
+        :max="pagination.total_pages"
         :max-pages="5"
         boundary-numbers
         direction-links
         class="q-mt-md"
         color="primary"
+        @update:model-value="loadPage"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+// Imports
 import { ref, computed, onMounted } from 'vue';
+import { IncidenciasService } from 'src/app/services/sanciones/IncidenciasService';
+import { useQuasar } from 'quasar';
 
-const personas = ref([
-  {
-    folio: '123456',
-    fecha: '2023-10-01',
-    tipoIncidencia: 'Tipo 1',
-    personalCustodia: 'Juan Perez',
-    cargoPersonal: 'Guardia',
-    estatusIncidencia: 'Pendiente',
-  },
-  {
-    folio: '123456',
-    fecha: '2023-10-01',
-    tipoIncidencia: 'Tipo 1',
-    personalCustodia: 'Juan Perez',
-    cargoPersonal: 'Guardia',
-    estatusIncidencia: 'Pendiente',
-  },
-  {
-    folio: '123456',
-    fecha: '2023-10-01',
-    tipoIncidencia: 'Tipo 1',
-    personalCustodia: 'Juan Perez',
-    cargoPersonal: 'Guardia',
-    estatusIncidencia: 'Pendiente',
-  },
-  {
-    folio: '123456',
-    fecha: '2023-10-01',
-    tipoIncidencia: 'Tipo 1',
-    personalCustodia: 'Juan Perez',
-    cargoPersonal: 'Guardia',
-    estatusIncidencia: 'Pendiente',
-  },
-  {
-    folio: '123456',
-    fecha: '2023-10-01',
-    tipoIncidencia: 'Tipo 1',
-    personalCustodia: 'Juan Perez',
-    cargoPersonal: 'Guardia',
-    estatusIncidencia: 'Pendiente',
-  },
-  {
-    folio: '123456',
-    fecha: '2023-10-01',
-    tipoIncidencia: 'Tipo 1',
-    personalCustodia: 'Juan Perez',
-    cargoPersonal: 'Guardia',
-    estatusIncidencia: 'Pendiente',
-  },
-]);
+// Variables
 const isLoading = ref(true);
 const objectTetcnico = ref(false);
-
+const service = new IncidenciasService();
 const rowsPerPage = 3;
 const page = ref(1);
-
-const pages = computed(() => Math.ceil(personas.value.length / rowsPerPage));
-
-const paginatedData = computed(() => {
-  const start = (page.value - 1) * rowsPerPage;
-  return personas.value.slice(start, start + rowsPerPage);
+const $q = useQuasar();
+const data = ref<any[]>([]);
+const pagination = ref({
+  total: 0,
+  per_page: 10,
+  current_page: 1,
+  total_pages: 1,
 });
 
+// Funciones
 onMounted(async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  // Simulando una llamada a la API
-  isLoading.value = false;
+  try {
+    const response = await service.getIncidencias();
+    data.value = response.data;
+    pagination.value = response.meta.pagination;
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: error.message,
+    });
+  } finally {
+    isLoading.value = false;
+  }
 });
+
+async function loadPage(pageNumber: number) {
+  isLoading.value = true;
+  try {
+    const response = await service.getIncidencias();
+    data.value = response.data;
+    pagination.value = response.meta.pagination;
+    page.value = pagination.value.current_page;
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: (error as Error).message,
+    });
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 <style scoped>
 .loading-overlay {
