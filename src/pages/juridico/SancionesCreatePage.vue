@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLoading" class="loading-overlay">
+  <div class="loading-overlay">
     <q-spinner-gears color="primary" size="10em" />
   </div>
   <div class="row">
