@@ -43,13 +43,12 @@
       </table>
 
       <q-pagination
-        v-if="pagination.total_pages > 1"
         v-model="page"
         :max="pagination.total_pages"
         :max-pages="5"
         boundary-numbers
         direction-links
-        class="q-mt-md"
+        class="q-mt-md full-width flex justify-center"
         color="primary"
         @update:model-value="loadPage"
       />
@@ -59,7 +58,7 @@
 
 <script setup lang="ts">
 // Imports
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { IncidenciasService } from 'src/app/services/sanciones/IncidenciasService';
 import { useQuasar } from 'quasar';
 
@@ -84,7 +83,7 @@ onMounted(async () => {
     const response = await service.getIncidencias();
     data.value = response.data;
     pagination.value = response.meta.pagination;
-  } catch (error) {
+  } catch (error: any) {
     $q.notify({
       type: 'negative',
       message: error.message,
