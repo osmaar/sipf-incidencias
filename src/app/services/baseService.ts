@@ -17,31 +17,31 @@ export class BaseService {
     }
   }
 
-  async get<T>(url: string, params?: any): Promise<T | null> {
+  async get<T>(url: string, params?: Record<string, unknown>): Promise<T | null> {
     try {
       const response = await this.api.get<T>(url, { params });
       return response.data;
-    } catch (error: any) {
+    } catch (error: unknown) {
       this.handleError(error);
       return null;
     }
   }
 
-  async post<T>(url: string, data?: any): Promise<T | null> {
+  async post<T, D = unknown>(url: string, data?: D): Promise<T | null> {
     try {
       const response = await this.api.post<T>(url, data);
       return response.data;
-    } catch (error: any) {
+    } catch (error: unknown) {
       this.handleError(error);
       return null;
     }
   }
 
-  async put<T>(url: string, data?: any): Promise<T | null> {
+  async put<T, D = unknown>(url: string, data?: D): Promise<T | null> {
     try {
       const response = await this.api.put<T>(url, data);
       return response.data;
-    } catch (error: any) {
+    } catch (error: unknown) {
       this.handleError(error);
       return null;
     }
@@ -51,15 +51,22 @@ export class BaseService {
     try {
       const response = await this.api.delete<T>(url);
       return response.data;
-    } catch (error: any) {
+    } catch (error: unknown) {
       this.handleError(error);
       return null;
     }
   }
 
-  private handleError(error: any) {
+  private handleError(error: unknown) {
+    if (error instanceof Error) {
+      console.error('API Error:', error.message);
+    } else {
+      console.error('API Error:', error);
+    }
     console.error('API Error:', error);
-    const message = error?.response?.data?.message || 'Error en la petición';
+    const message =
+      (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
+      'Error en la petición';
     Notify.create({
       type: 'negative',
       message,
