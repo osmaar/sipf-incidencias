@@ -6,7 +6,7 @@
     </div>
     <q-card-section class="text-center">
       <q-avatar size="150px">
-        <img :src="Avatar" />
+        <img :src="Avatar" alt="Avatar" />
       </q-avatar>
       <p class="q-mt-lg tw-font-semibold tw-font-stretch-150% tw-tracking-wider">
         {{ persona?.nombre_completo.toUpperCase() ?? '' }}
