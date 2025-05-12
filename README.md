@@ -1,4 +1,4 @@
-# Módulo – SIPF Sanciones e Incidencias
+# Módulo – SIPF Incidencias
 
 Aplicación SPA construida con [Quasar Framework](https://quasar.dev/) y Vite, usando TypeScript. Esta aplicación administra el módulo de sanciones del sistema SIPF.
 
