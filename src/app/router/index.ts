@@ -17,7 +17,10 @@ import { useSessionStore } from 'src/stores/session';
  */
 
 export default function () {
-  let createHistory;
+  let createHistory:
+    | typeof createMemoryHistory
+    | typeof createWebHistory
+    | typeof createWebHashHistory;
 
   if (process.env.SERVER) {
     createHistory = createMemoryHistory;
