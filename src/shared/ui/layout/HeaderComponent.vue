@@ -1,38 +1,74 @@
 <template>
-  <q-header elevated class="tw-bg-emerald-900 text-white">
-    <q-toolbar class="q-pa-sm items-center">
-      <div class="row items-center no-wrap">
-        <img :src="ImgLogo" class="img-logo q-mr-sm" />
-        <span class="text-h6">{{ props.titulo }}</span>
+  <q-header elevated class="bg-topbar-sipf text-white shadow-2">
+    <div class="flex h-full w-full items-center justify-between flex-wrap gap-2">
+      <!-- LOGO -->
+      <div class="flex items-center px-2 shrink-0 h-full">
+        <q-btn flat dense round @click="refreshHome" class="logo-custom">
+          <img :src="ImgLogo" alt="Logo" class="h-10 sm:h-16" />
+        </q-btn>
       </div>
-      <MenuComponent />
-      <q-space />
 
-      <q-avatar size="32px" class="cursor-pointer">
-        <img :src="Avatar" />
-      </q-avatar>
-    </q-toolbar>
+      <!-- CENTRO + RELOJ centrado -->
+      <div class="flex items-center flex-grow justify-center h-full hidden-xs">
+        <CentroRelojComponent :centro="centro" />
+      </div>
+
+      <!-- AVATAR alineado al extremo derecho -->
+      <div class="flex items-center px-2 shrink-0 h-full">
+        <UserAvatarMenu :user="user" @logout="logout" />
+      </div>
+    </div>
   </q-header>
 </template>
 
 <script setup lang="ts">
 import ImgLogo from 'src/assets/img/logo.png';
-import Avatar from 'src/assets/img/avatar.jpg';
-import { defineProps } from 'vue';
-import MenuComponent from './MenuComponent.vue';
+import { useRouter } from 'vue-router';
+import type { User } from 'src/entities/user/user.model';
+import UserAvatarMenu from 'src/shared/ui/UserAvatarMenu.vue';
+import type { Centro } from 'src/entities/centro/centro.model';
+import { LogoutService } from 'src/app/services/LogoutService';
+import CentroRelojComponent from 'src/shared/ui/CentroRelojComponent.vue';
 
-const props = withDefaults(
-  defineProps<{
-    titulo?: string;
-  }>(),
-  {
-    titulo: 'Home',
-  },
-);
+const { user, centro } = defineProps<{ user: User; centro: Centro }>();
+const router = useRouter();
+
+/**
+ * Refresh the home page
+ * @returns {Promise<void>}
+ */
+function refreshHome() {
+  router.replace('/').catch((error) => {
+    console.error('Error al refrescar la página de inicio:', error);
+  });
+}
+
+/**
+ * Logout function
+ * @returns {Promise<void>}
+ */
+async function logout() {
+  const service = new LogoutService();
+  await service.logout();
+}
 </script>
+
 <style scoped>
-.img-logo {
-  width: 80px;
-  display: block;
+.bg-topbar-sipf {
+  background-color: #1a5c50;
+  height: auto;
+  min-height: 70px;
+  padding: 0.5rem;
+}
+
+.logo-custom {
+  width: 106.29px;
+}
+
+/* Oculta el centro y reloj en pantallas pequeñas */
+@media (max-width: 600px) {
+  .hidden-xs {
+    display: none !important;
+  }
 }
 </style>
