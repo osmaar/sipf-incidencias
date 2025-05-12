@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineEmits } from 'vue';
+import { ref } from 'vue';
 import type { User } from 'src/entities/user/user.model';
 
 const props = defineProps<{ user: User }>();
