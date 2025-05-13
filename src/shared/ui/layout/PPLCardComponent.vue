@@ -1,15 +1,14 @@
 <template>
   <q-card class="q-ma-md q-pa-md">
     <div class="tw-bg-emerald-900 text-center text-white">
-      ID PPL:[<span class="tw-text-green-500">{{ persona?.id ?? '' }}</span
-      >]
+      ID PPL:[<span class="tw-text-green-500">{{ persona?.id ?? '' }}</span>]
     </div>
     <q-card-section class="text-center">
       <q-avatar size="150px">
         <img :src="Avatar" alt="Avatar" />
       </q-avatar>
       <p class="q-mt-lg tw-font-semibold tw-font-stretch-150% tw-tracking-wider">
-        {{ persona?.nombre_completo.toUpperCase() ?? '' }}
+        {{ persona?.nombre_completo?.toUpperCase() ?? '' }}
       </p>
       <p class="tw-font-light">{{ edad }} AÑOS DE EDAD</p>
     </q-card-section>
@@ -18,21 +17,32 @@
     </div>
     <div class="tw-bg-emerald-900 text-center text-white" v-else>CENTRO (FEMENIL)</div>
     <q-card-section class="text-center">
-      <p class="tw-text-green-500">{{ expediente?.centro?.nombre_centro.toUpperCase() ?? '' }}</p>
+      <p class="tw-text-green-500">{{ expediente?.centro?.nombre_centro ? expediente.centro.nombre_centro.toUpperCase()
+        : '' }}</p>
+
       <p>TIPO DE INGRESO:</p>
       <p class="tw-text-green-500">{{ persona?.tipo_ingreso }}</p>
       <p>
         ESTATUS:
-        <span class="tw-text-green-500">{{ expediente?.estatus_centro.toUpperCase() ?? '' }}</span>
+        <span class="tw-text-green-500">
+          {{ expediente?.estatus_centro ? expediente.estatus_centro.toUpperCase() : '' }}
+        </span>
+
       </p>
     </q-card-section>
     <div class="tw-bg-emerald-900 text-center text-white">EXPEDIENTE ACTUAL</div>
     <q-card-section class="text-center">
       <p>NÙM.</p>
-      <p class="tw-text-green-500">{{ expediente?.num_expediente.toUpperCase() ?? '' }}</p>
+      <p class="tw-text-green-500">
+        {{ expediente?.num_expediente ? expediente.num_expediente.toUpperCase() : '' }}
+      </p>
+
       <p>
         ESTATUS:
-        <span class="tw-text-green-500">{{ expediente?.estatus_proceso.toUpperCase() ?? '' }}</span>
+        <span class="tw-text-green-500">
+          {{ expediente?.estatus_proceso ? expediente.estatus_proceso.toUpperCase() : '' }}
+        </span>
+
       </p>
     </q-card-section>
   </q-card>
