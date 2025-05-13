@@ -7,8 +7,8 @@ export interface Centro {
   entidad_federativa: number;
   municipio: number;
   tipo: string;
-  created_at: string | null;
-  updated_at: string | null;
+  created_at: string;
+  updated_at: string;
   deleted_at: string | null;
   nombre_completo: string;
   numero: number;
