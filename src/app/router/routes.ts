@@ -7,6 +7,10 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
+        path: '',
+        redirect: 'incidencias-tecnico',
+      },
+      {
         path: 'incidencias-tecnico',
         component: () => import('pages/tecnico/IncidenciasPage.vue'),
         meta: { title: 'Incidencias Técnico', requiresAuth: true },
