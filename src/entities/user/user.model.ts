@@ -1,8 +1,24 @@
 // src/entities/user/user.model.ts
 
-export interface User {
+export interface CentroUser {
+  id: number;
   name: string;
-  tipo: string;
-  role: { name: string };
-  photo?: string;
+  estado: number;
 }
+
+export interface RolUser {
+  name: string;
+  permissions: string[];
+}
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  photo?: string;
+  tipo: string;
+  centro?: CentroUser;
+  role: RolUser;
+}
+
+export type Permisos = string[];
