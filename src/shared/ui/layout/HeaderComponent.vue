@@ -15,22 +15,25 @@
 
       <!-- AVATAR alineado al extremo derecho -->
       <div class="flex items-center px-2 shrink-0 h-full">
-        <UserAvatarMenu :user="user" @logout="logout" />
+        <UserAvatarMenu v-if="props.user" :user="props.user" @logout="logout" />
       </div>
     </div>
   </q-header>
 </template>
 
 <script setup lang="ts">
-import ImgLogo from 'src/assets/img/logo.png';
 import { useRouter } from 'vue-router';
+import ImgLogo from 'src/assets/img/logo.png';
 import type { User } from 'src/entities/user/user.model';
 import UserAvatarMenu from 'src/shared/ui/UserAvatarMenu.vue';
 import type { Centro } from 'src/entities/centro/centro.model';
 import { LogoutService } from 'src/app/services/LogoutService';
 import CentroRelojComponent from 'src/shared/ui/CentroRelojComponent.vue';
 
-const { user, centro } = defineProps<{ user: User; centro: Centro }>();
+const props = defineProps<{
+  user?: User;
+  centro: Centro;
+}>();
 const router = useRouter();
 
 /**
