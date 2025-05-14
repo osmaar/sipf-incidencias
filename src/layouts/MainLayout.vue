@@ -47,7 +47,7 @@ const session = useSessionStore();
 const route = useRoute();
 const titulo = computed(() => {
   const title = route.meta.title;
-  return typeof title === 'string' ? title : 'Incidencias';
+  return typeof title === 'string' ? title : 'SIPF - ';
 });
 
 const centroActual = computed(() => {
