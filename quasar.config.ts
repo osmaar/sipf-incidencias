@@ -8,10 +8,16 @@ export default defineConfig((/* ctx */) => {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
 
+    //Titutlo de la pestaña
+    htmlVariables: {
+      productName: 'Sistema Integral Penitenciario Federal',
+      productDescription: 'Sistema Integral Penitenciario Federal',
+    },
+
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: ['axios'],
+    boot: ['axios', 'permiso'],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
     css: ['app.scss'],
