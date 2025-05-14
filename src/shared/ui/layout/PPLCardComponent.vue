@@ -13,29 +13,35 @@
 
     <!-- Contenido principal -->
     <q-card-section class="text-center">
-      <div class="text-h6 font-bold">{{ persona?.nombre_completo?.toUpperCase() ?? '' }}</div>
+      <div class="text-h6 font-bold">{{ persona?.nombre_completo ?? '' }}</div>
       <div class="text-subtitle2 text-grey-7">{{ edad }} AÑOS DE EDAD</div>
 
       <q-separator spaced />
 
       <!-- Centro -->
-      <div class="text-caption text-grey-7 mb-1">Centro (<small>{{ centroGenero }} </small> ) </div>
-      <q-chip class="bg-sipf text-white" dense>{{ centroNombre }}</q-chip>
+      <div class=" text-caption  text-grey-8 mb-1">Centro (<small>{{ centroGenero }} </small> ) </div>
+
+      <div class="tw-text-lg font-medium text-grey-9 mb-1"> {{ centroNombre }} </div>
+
       <q-separator spaced />
 
       <!-- Tipo de ingreso -->
       <div class="text-caption text-grey-7 mb-1">TIPO DE INGRESO </div>
-      <q-chip class="bg-secondary text-white" dense>{{ existente }}</q-chip>
+
+      <q-btn class="q-mt-sm" color="secondary" size="sm" :label="existente">
+      </q-btn>
 
       <!-- Estatus del centro -->
+      <div class="q-mt-sm text-caption text-grey-7 mb-1">Estatus </div>
+      <q-btn class="q-mt-sm" color="primary" size="sm" :label="estatusCentro">
+      </q-btn>
+
       <q-separator spaced />
-      <div class="text-caption text-grey-7 mb-1">Estatus </div>
-      <q-chip class="bg-secondary text-white" dense>INGRESO</q-chip>
 
       <!-- Expediente -->
       <div class="text-caption text-grey-7 mt-3 mb-1">EXPEDIENTE</div>
-      <div class="text-green-700 font-medium">
-        {{ expediente?.num_expediente?.toUpperCase() ?? 'Sin expediente' }}
+      <div class="tw-text-lg  font-medium">
+        {{ expediente?.num_expediente ?? 'Sin expediente' }}
       </div>
     </q-card-section>
   </q-card>
@@ -51,7 +57,7 @@ const persona = sessionStore.persona;
 const expediente = sessionStore.expediente;
 const movimientoActual = expediente?.movimientos?.[0];
 const pplExists = movimientoActual?.es_nuevo_ingreso;
-
+const estatusCentro = expediente?.estatus_centro;
 const tipoCentro = sessionStore.expediente?.centro?.tipo;
 const edad = ref(0);
 
@@ -93,14 +99,3 @@ onMounted(() => {
   }
 });
 </script>
-
-
-<style scoped>
-.bg-sipf {
-  background-color: #1a5c50;
-}
-
-.text-sipf {
-  color: #1a5c50;
-}
-</style>
