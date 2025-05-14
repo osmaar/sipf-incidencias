@@ -4,9 +4,16 @@
     <div class="row items-center justify-between q-gutter-md">
       <!-- Botones lado izquierdo -->
       <div class="row items-center q-gutter-sm">
-        <q-btn icon="keyboard_backspace" @click="redirectSipf" flat class="text-primary" label="Regresar al Menú" />
-        <q-btn icon="account_box" flat :label="isPPL ? 'Ocultar ficha PPL' : 'Mostrar ficha PPL'" @click="toggleFicha"
-          class="text-primary" />
+        <q-btn unelevated dense icon="keyboard_backspace" label="Regresar al menú" @click="redirectSipf"
+          color="secondary" text-color="white" size="sm" class="q-px-sm q-py-xs" style="font-size: 12px;" />
+
+        <q-btn unelevated dense :icon="isPPL ? 'visibility_off' : 'visibility'"
+          :label="isPPL ? 'Ocultar ficha PPL' : 'Mostrar ficha PPL'" @click="toggleFicha" color="secondary"
+          text-color="white" size="sm" class="q-px-sm q-py-xs" style="font-size: 12px;">
+
+        </q-btn>
+
+
       </div>
 
       <!-- BREADCRUM alineado derecha -->
@@ -24,6 +31,7 @@
 import { inject } from 'vue';
 import type { Ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { appConfig } from 'src/shared/config/app.config';
 
 const route = useRoute();
 const titulo: string = route.meta.title as string ?? 'Sin título';
@@ -32,7 +40,7 @@ const isPPL = inject('isPPL') as Ref<boolean>;
 const toggleFicha = inject('toggleFicha') as () => void;
 
 function redirectSipf() {
-  const urlSipf = import.meta.env.VITE_APP_FRONTEND;
+  const urlSipf = appConfig.frontendUrl;
   window.location.href = urlSipf;
 }
 </script>
