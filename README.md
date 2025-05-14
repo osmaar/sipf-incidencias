@@ -1,6 +1,7 @@
-# Microfrontend SIPF Incidencias
+# Microfrontend SIPF Incidencias 
 
 Aplicación SPA construida con [Quasar Framework](https://quasar.dev/) y Vite, usando TypeScript. Esta aplicación implementa **Feature-Sliced Design** como arquitectura para microfrontends. Más información: [Feature-Sliced Design](https://medium.com/@dtgasparyan/feature-sliced-design-the-ideal-frontend-architecture-84d701ad44ba).
+
 
 ---
 
