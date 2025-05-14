@@ -1,6 +1,6 @@
-# Módulo – SIPF Incidencias
+# Microfrontend SIPF Incidencias
 
-Aplicación SPA construida con [Quasar Framework](https://quasar.dev/) y Vite, usando TypeScript. Esta aplicación administra el módulo de sanciones del sistema SIPF.
+Aplicación SPA construida con [Quasar Framework](https://quasar.dev/) y Vite, usando TypeScript. Esta aplicación implementa **Feature-Sliced Design** como arquitectura para microfrontends. Más información: [Feature-Sliced Design](https://medium.com/@dtgasparyan/feature-sliced-design-the-ideal-frontend-architecture-84d701ad44ba).
 
 ---
 
@@ -16,7 +16,7 @@ src/
 ├── css/                 # Archivos de estilos globales
 ├── entities/            # Modelos y transformadores de datos
 │   └── sancion/         # Ejemplo: sancion.model.ts, sancion.repository.ts
-├── features/            # Páginas o módulos funcionales
+├── features/            # Páginas o módulos funcionales (siguiendo FSD)
 │   └── sanciones/       # Submódulos: create, edit, show
 ├── layouts/             # Layouts globales (ej. MainLayout.vue)
 ├── pages/               # Páginas principales por módulo (ej. tecnico/)
@@ -92,16 +92,40 @@ La configuración principal está en:
 - `src/boot/axios.ts`: configuración global de axios
 - `src/app/router/`: rutas principales
 
+Además:
+
+- Se creó la directiva `v-permiso="'modulo.accion'"` para protección por permisos.
+- En rutas se agregó el atributo `permisos` en `meta` para protección basada en roles.
+- Se cuenta con detección automática del ambiente (LOCAL, TEST, QA, PROD) mediante variables `VITE_APP_ENV`.
+
 ---
 
-## ✅ Convenciones
+## 🔐 Información precargada en Pinia
 
-- Usa `boot/` para inicializar servicios como Axios, Auth o i18n.
-- Coloca los modelos y lógica de acceso a datos en `entities/`.
-- Implementa cada módulo funcional como carpeta dentro de `features/`.
-- Usa `shared/lib/` para validaciones, helpers y funciones comunes.
-- Coloca los `Pinia stores` en `stores/`, uno por entidad o módulo.
-- Usa `widgets/` para componentes grandes con lógica específica.
+Ya están disponibles desde el arranque:
+
+- Centro (`CENTRO`)
+- Persona (`PERSONA`)
+- Expediente (`EXPEDIENTE`)
+- Usuario logeado (`USUARIO`)
+- Permisos (`PERMISOS`)
+- Token de autenticación (`AUTH_TOKEN`)
+
+Todo esto se carga desde variables de entorno(LOCAL) o el LocalStorage.
+
+---
+
+## 🧱 Plantilla base (RAMA `master`)
+
+La rama `master` se considera **cascarón base** del microfrontend (`VUE`), con todo lo necesario para comenzar un nuevo módulo,
+asi tambien se considera la plantilla base para otros Frontend (ej. `REACT`, `ANGULAR` o `SVELT` ):
+
+- Estructura basada en Feature-Sliced Design
+- Directiva de permisos global
+- Carga de datos inicial desde Pinia
+- Rutas protegidas por permisos
+- CRUD centralizado en un servicio base para reutilización de lógica de datos
+- Estructura modularizada lista para añadir páginas y rutas nuevas
 
 ---
 
@@ -117,4 +141,4 @@ La configuración principal está en:
 ## 🧠 Notas adicionales
 
 - Este proyecto usa `@quasar/app-vite` versión `2.2.0`.
-- Para evitar errores con imports, revisa que los **alias estén definidos** en `quasar.config.ts` y `tsconfig.json`.
+- Para evitar errores con imports, asegúrate que los alias estén definidos correctamente en `quasar.config.ts` y `tsconfig.json`.
