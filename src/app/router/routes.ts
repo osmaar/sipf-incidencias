@@ -8,22 +8,30 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        redirect: 'incidencias-tecnico',
+        redirect: 'inicio',
       },
       {
-        path: 'incidencias-tecnico',
-        component: () => import('pages/tecnico/IncidenciasPage.vue'),
-        meta: { title: 'Incidencias Técnico', requiresAuth: true },
+        path: 'inicio',
+        component: () => import('pages/home/HomePage.vue'),
+        meta: {
+          title: 'Inicio',
+          requiresAuth: true,
+          permisos: ['juridico-sanciones'], // Permisos para acceder a la página,
+        },
       },
     ],
   },
   {
     path: '/not-logged',
-    component: () => import('pages/NotLogged.vue'),
+    component: () => import('pages/errores/NotLogged.vue'),
+  },
+  {
+    path: '/forbidden',
+    component: () => import('pages/errores/ErrorForbidden.vue'),
   },
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/NotLogged.vue'),
+    component: () => import('pages/errores/ErrorNotFound.vue'),
   },
 ];
 
