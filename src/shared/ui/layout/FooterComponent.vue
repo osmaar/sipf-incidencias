@@ -14,7 +14,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { BaseService } from 'src/app/services/baseService';
 
 const year = new Date().getFullYear();
 const version = ref('');
@@ -22,20 +21,16 @@ const buildDate = ref('');
 const commit = ref('');
 
 onMounted(async () => {
-  const baseService = new BaseService();
   try {
-    const response = await baseService.get<{ version: string; buildDate: string; commit: string }>(
-      '/sipf/assets/version.json'
-    );
-    if (response) {
-      version.value = response.version;
-      buildDate.value = response.buildDate;
-      commit.value = response.commit;
-    } else {
-      console.error('Error al obtener la versión del servicio');
-    }
+    const res = await fetch('/assets/version.json');
+    const data = await res.json();
+
+    version.value = data.version;
+    buildDate.value = data.buildDate;
+    commit.value = data.commit;
   } catch (error) {
-    console.error('Error en la petición del footer:', error);
+    console.error('Error al cargar versión del frontend:', error);
   }
 });
+
 </script>
